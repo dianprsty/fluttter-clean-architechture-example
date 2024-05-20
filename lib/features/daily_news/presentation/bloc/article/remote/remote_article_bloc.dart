@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:clean_architecture_example/core/resources/data_state.dart';
 import 'package:clean_architecture_example/features/daily_news/domain/entities/article.dart';
@@ -13,19 +15,31 @@ class RemoteArticleBloc extends Bloc<RemoteArticleEvent, RemoteArticleState> {
 
   RemoteArticleBloc(this._getArticleUseCase)
       : super(const RemoteArticleLoading()) {
-    on<GetArticles>(onGetArticles);
+    on<GetArticlesEvent>(onGetArticles);
   }
 
   void onGetArticles(
-      GetArticles event, Emitter<RemoteArticleState> emit) async {
-    final dataState = await _getArticleUseCase();
+      GetArticlesEvent event, Emitter<RemoteArticleState> emit) async {
+    try {
+      log("[BLOC] GET ARTICLE FROM API");
+      final dataState = await _getArticleUseCase();
 
-    if (dataState is DataSucces && dataState.data!.isNotEmpty) {
-      emit(RemoteArticleDone(dataState.data!));
-    }
+      if (dataState is DataSucces && dataState.data!.isNotEmpty) {
+        log("[BLOC] SUCCESS GET ARTICLE");
 
-    if (dataState is DataFailed) {
-      emit(RemoteArticleError(dataState.error!));
+        emit(RemoteArticleDone(dataState.data!));
+      }
+
+      if (dataState is DataFailed) {
+        log("[BLOC] FAILED GET ARTICLE");
+        emit(RemoteArticleError(dataState.error!));
+      }
+    } catch (e) {
+      log("[ERROR] [REMOTE ARTICLE BLOC] ${e.toString()}");
+      emit(RemoteArticleError(
+        DioException.connectionError(
+            requestOptions: RequestOptions(), reason: "failed connect to api"),
+      ));
     }
   }
 }
