@@ -10,7 +10,7 @@ class ArticleTile extends StatelessWidget {
   final void Function(ArticleEntity article)? onArticlePressed;
 
   const ArticleTile({
-    Key? key,
+    super.key,
     this.article,
     this.isRemovable = false,
     this.onRemove,
@@ -67,10 +67,10 @@ class ArticleTile extends StatelessWidget {
                 child: Container(
                   width: MediaQuery.of(context).size.width / 3,
                   height: double.maxFinite,
-                  child: CupertinoActivityIndicator(),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.08),
                   ),
+                  child: const CupertinoActivityIndicator(),
                 ),
               ),
             ),
@@ -81,10 +81,10 @@ class ArticleTile extends StatelessWidget {
                 child: Container(
                   width: MediaQuery.of(context).size.width / 3,
                   height: double.maxFinite,
-                  child: Icon(Icons.error),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.08),
                   ),
+                  child: const Icon(Icons.error),
                 ),
               ),
             ));

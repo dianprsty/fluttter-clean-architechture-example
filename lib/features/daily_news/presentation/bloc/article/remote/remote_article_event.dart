@@ -9,6 +9,4 @@ sealed class RemoteArticleEvent extends Equatable {
 
 class GetArticlesEvent extends RemoteArticleEvent {
   const GetArticlesEvent();
-
-  List<Object> get props => [];
 }

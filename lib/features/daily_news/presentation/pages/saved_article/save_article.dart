@@ -9,7 +9,7 @@ import '../../bloc/article/local/local_article_bloc.dart';
 import '../../widgets/article_tile.dart';
 
 class SavedArticles extends HookWidget {
-  const SavedArticles({Key? key}) : super(key: key);
+  const SavedArticles({super.key});
 
   @override
   Widget build(BuildContext context) {
