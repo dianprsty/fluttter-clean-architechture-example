@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clean_architecture_example/features/daily_news/domain/entities/article.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,7 +10,7 @@ class ArticleTile extends StatelessWidget {
   final void Function(ArticleEntity article)? onArticlePressed;
 
   const ArticleTile({
-    super.key,
+    Key? key,
     this.article,
     this.isRemovable = false,
     this.onRemove,
@@ -23,9 +21,7 @@ class ArticleTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () {
-        //
-      },
+      onTap: _onTap,
       child: Container(
         padding: const EdgeInsetsDirectional.only(
           start: 14,

@@ -1,3 +1,4 @@
+import 'package:clean_architecture_example/config/routes/routes.dart';
 import 'package:clean_architecture_example/config/theme/app_themes.dart';
 import 'package:clean_architecture_example/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 import 'package:clean_architecture_example/features/daily_news/presentation/pages/home/daily_news.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: theme(),
+        onGenerateRoute: AppRoutes.onGenerateRoutes,
         home: const DailyNews(),
       ),
     );
